@@ -9,3 +9,6 @@ Using WPF、ClearScript、marked.js made Markdown editor.
 - Add the English localization support
 - Add Markdown auxiliary function buttons
 - Add .md association
+
+# License
+BSD
