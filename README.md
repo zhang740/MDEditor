@@ -11,4 +11,4 @@ Using WPF、ClearScript、marked.js made Markdown editor.
 - Add .md association
 
 # License
-BSD
+MIT
