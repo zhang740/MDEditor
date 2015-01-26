@@ -1,0 +1,33 @@
+﻿<Window x:Class="MDEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MDEditor"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Title="MDEditor" Height="600" Width="1000">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <ToolBar>
+            <Button Content="新建" Click="NewBtn_Click"/>
+            <Button Content="打开" Click="OpenBtn_Click"/>
+            <Button Content="保存" Click="SaveBtn_Click"/>
+            <Button Content="创建默认生成资源" Click="TemplateBtn_Click"/>
+        </ToolBar>
+
+        <TabControl x:Name="MainTab" Grid.Row="1">
+
+        </TabControl>
+
+        <StatusBar Grid.Row="2">
+            <Label Content="状态栏"/>
+        </StatusBar>
+    </Grid>
+</Window>
