@@ -21,6 +21,7 @@ namespace MDEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string StartParam = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +31,23 @@ namespace MDEditor
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            NewBtn_Click(sender, e);
+            if (!string.IsNullOrWhiteSpace(StartParam))
+            {
+                OpenFile(StartParam);
+            }
+            else
+            {
+                NewBtn_Click(sender, e);
+            }
+        }
+
+        void OpenFile(string path)
+        {
+            if (MainTab.Items.Count == 0) NewBtn_Click(this, null);
+            var tb = MainTab.SelectedItem as TabItem;
+            tb.Tag = path;
+            (tb.Header as TabHeaderUC).SetTitle(path.Split(new[] { '\\' }).Last());
+            (tb.Content as MDEditorUC).MarkDownText = File.ReadAllText(path);
         }
 
         private void NewBtn_Click(object sender, RoutedEventArgs e)
@@ -61,11 +78,7 @@ namespace MDEditor
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
-                if (MainTab.Items.Count == 0) NewBtn_Click(sender, e);
-                var tb = MainTab.SelectedItem as TabItem;
-                tb.Tag = ofd.FileName;
-                (tb.Header as TabHeaderUC).SetTitle(ofd.SafeFileName);
-                (tb.Content as MDEditorUC).MarkDownText = File.ReadAllText(ofd.FileName);
+                OpenFile(ofd.FileName);
             }
         }
 
@@ -93,6 +106,45 @@ namespace MDEditor
         {
             MarkdownProcessor.ExportTemplate();
             MessageBox.Show("已创建！请到程序目录下查看，程序将会优先使用外部资源文件。\n模板立即生效，markjs和配置文件重启生效。");
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var mi = sender as MenuItem;
+            switch (mi.Tag.ToString())
+            {
+                case "New":
+                    NewBtn_Click(sender, e);
+                    break;
+
+                case "Open":
+                    OpenBtn_Click(sender, e);
+                    break;
+
+                case "Save":
+                    SaveBtn_Click(sender, e);
+                    break;
+
+                case "Close":
+                    MainTab.Items.Remove(MainTab.SelectedItem);
+                    break;
+
+                case "CloseAll":
+                    MainTab.Items.Clear();
+                    break;
+
+                case "HomePage":
+                    System.Diagnostics.Process.Start("http://zhang740.github.io/MDEditor/");
+                    break;
+
+                case "GitHub":
+                    System.Diagnostics.Process.Start("https://github.com/zhang740/MDEditor");
+                    break;
+
+                case "Quit":
+                    Application.Current.Shutdown();
+                    break;
+            }
         }
     }
 }

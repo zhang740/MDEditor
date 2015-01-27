@@ -6,27 +6,48 @@
         xmlns:local="clr-namespace:MDEditor"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
-        Title="MDEditor" Height="600" Width="1000">
+        Title="MDEditor" Height="600" Width="1000" Icon="Icon.ico">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <ToolBar>
+        <Menu Background="#F1F1F1" VerticalAlignment="Center" BorderBrush="LightGray" BorderThickness="0,1">
+            <MenuItem Header="文件">
+                <MenuItem Header="新建" Tag="New" Click="MenuItem_Click"/>
+                <MenuItem Header="打开" Tag="Open" Click="MenuItem_Click"/>
+                <Separator />
+                <MenuItem Header="保存" Tag="Save" Click="MenuItem_Click"/>
+                <!--<MenuItem Header="另存为" Tag="SaveAs" Click="MenuItem_Click"/>-->
+                <!--<MenuItem Header="保存全部" Tag="SaveAll" Click="MenuItem_Click"/>-->
+                <Separator />
+                <MenuItem Header="关闭" Tag="Close" Click="MenuItem_Click"/>
+                <MenuItem Header="关闭所有" Tag="CloseAll" Click="MenuItem_Click"/>
+                <Separator />
+                <MenuItem Header="退出" Tag="Quit" Click="MenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="帮助">
+                <MenuItem Header="主页" Tag="HomePage" Click="MenuItem_Click"/>
+                <MenuItem Header="GitHub" Tag="GitHub" Click="MenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <ToolBar Grid.Row="1">
             <Button Content="新建" Click="NewBtn_Click"/>
             <Button Content="打开" Click="OpenBtn_Click"/>
             <Button Content="保存" Click="SaveBtn_Click"/>
-            <Button Content="创建默认生成资源" Click="TemplateBtn_Click"/>
+            <Button Content="导出默认生成资源" Click="TemplateBtn_Click"/>
         </ToolBar>
 
-        <TabControl x:Name="MainTab" Grid.Row="1">
+        <TabControl x:Name="MainTab" Grid.Row="2">
 
         </TabControl>
 
-        <StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="3">
             <Label Content="状态栏"/>
         </StatusBar>
     </Grid>
